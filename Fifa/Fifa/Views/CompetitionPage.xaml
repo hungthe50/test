@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvvm:ViewBase xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:mvvm="clr-namespace:Fifa.Mvvm;assembly=Fifa"
+             xmlns:vm="clr-namespace:Fifa.ViewModels;assembly=Fifa"
+             x:Class="Fifa.Views.CompetitionPage"
+             Title="{Binding Title}"
+               x:Name="Root">
+    <mvvm:ViewBase.BindingContext>
+        <vm:CompetitionViewModel/>
+    </mvvm:ViewBase.BindingContext>
+    <ContentPage.Content>
+        <ListView ItemsSource="{Binding Competition.Matches}" HasUnevenRows="True" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5" BackgroundColor="White">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.MatchCommand, Source={x:Reference Root}}" CommandParameter="{Binding}"/>
+                            </Grid.GestureRecognizers>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Orientation="Horizontal" Grid.Column="0">
+                                <Image Source="{Binding HomeLogoImage}"
+                                       HeightRequest="30"
+                                       WidthRequest="30"/>
+                                <Label Text="{Binding HomeTeamEn}"
+                                       VerticalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout Grid.Column="1">
+                                <Label Text="{Binding Score}"
+                                       HorizontalOptions="Center"
+                                       FontAttributes="Bold"
+                                       HorizontalTextAlignment="Center"/>
+                                <Label Text="{Binding Date, StringFormat='{0:dd:MM:yyyy HH:mm}'}"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Grid.Column="2">
+                                <Label Text="{Binding  AwayTeamEn}"
+                                       VerticalOptions="Center"/>
+                                <Image Source="{Binding AwayLogoImage}"
+                                       HeightRequest="30"
+                                       WidthRequest="30"/>
+                               
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</mvvm:ViewBase>
